@@ -26,7 +26,7 @@ Game::Game()
       _clearDepth(1.0f), _clearStencil(0), _properties(NULL),
       _animationController(NULL), _audioController(NULL),
       _physicsController(NULL), _aiController(NULL), _audioListener(NULL),
-      _timeEvents(NULL), _scriptController(NULL), _scriptListeners(NULL)
+      _timeEvents(NULL), _scriptController(NULL), _scriptListeners(NULL), _timeScale(1.0f)
 {
     GP_ASSERT(__gameInstance == NULL);
     __gameInstance = this;
@@ -307,7 +307,7 @@ void Game::frame()
         GP_ASSERT(_aiController);
 
         // Update Time.
-        float elapsedTime = (frameTime - lastFrameTime);
+        float elapsedTime = (frameTime - lastFrameTime) * _timeScale;
         lastFrameTime = frameTime;
 
         // Update the scheduled and running animations.
@@ -653,5 +653,12 @@ void Game::ShutdownListener::timeEvent(long timeDiff, void* cookie)
 	Game::getInstance()->shutdown();
 }
 
+void Game::setTimeScale(const float &timeScale) {
+    _timeScale = timeScale;
 }
 
+const float &Game::getTimeScale() const {
+    return _timeScale;
+}
+    
+}

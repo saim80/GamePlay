@@ -669,6 +669,8 @@ protected:
      */
     void updateOnce();
 
+    const float &getTimeScale() const;
+    void setTimeScale(const float &timeScale);
 private:
 
     /**
@@ -766,6 +768,8 @@ private:
     std::priority_queue<TimeEvent, std::vector<TimeEvent>, std::less<TimeEvent> >* _timeEvents;     // Contains the scheduled time events.
     ScriptController* _scriptController;            // Controls the scripting engine.
     std::vector<ScriptListener*>* _scriptListeners; // Lua script listeners.
+    
+    float _timeScale;
 
     // Note: Do not add STL object member variables on the stack; this will cause false memory leaks to be reported.
 
